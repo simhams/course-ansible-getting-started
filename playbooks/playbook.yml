@@ -1,0 +1,8 @@
+---
+# copy gitconfig file using ansible ad-hoc
+# ansible -m copy -a "src=master.gitconfig dest=~/.gitconfig" localhost
+
+- name: Ensure ~/.gitconfig is copied from master.gitconfig
+  hosts: localhost
+  tasks:
+  - copy: src="../adhoc/master.gitconfig" dest="~/.gitconfig"
