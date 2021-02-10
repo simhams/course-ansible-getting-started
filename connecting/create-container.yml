@@ -8,19 +8,24 @@
 - name: Ensure docker containers created
   hosts: localhost
   tasks:
+  - name: Check if container is running
+    shell: docker ps
+    become: yes
+
   - name: Ensure docker container started 
-    docker_container:
+    community.docker.docker_container:
       image: python
       #command: bash
       interactive: yes
       name: "{{ item }}" 
       state: started
     loop: "{{ query('inventory_hostnames', 'containers') }}"
+    become: yes
 
-- name: Ensure git configured in containers
-  hosts: containers 
-  tasks:
-  - git_config: scope=global list_all=yes
-  - git_config: scope=global name=user.email value=wes.mcclure@gmail.com
-  - git_config: scope=global name=user.name value=Wes
-  - git_config: scope=global list_all=yes
+# - name: Ensure git configured in containers
+#   hosts: containers 
+#   tasks:
+#   - git_config: scope=global list_all=yes
+#   - git_config: scope=global name=user.email value=wes.mcclure@gmail.com
+#   - git_config: scope=global name=user.name value=Wes
+#   - git_config: scope=global list_all=yes

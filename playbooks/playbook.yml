@@ -10,6 +10,7 @@
 - name: Ensure homebrew packages are installed.
   hosts: localhost
   tasks:
-  - homebrew: 
+  - community.general.homebrew: 
       name: jq
       state: latest
+   
